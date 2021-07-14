@@ -1,22 +1,23 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cretaeCustomerAction } from "../redux/store";
+import { cretaeCustomerAction, updateCustomerAction } from "../redux/store";
 import { AppNav } from "./AppNav";
 
 export const CustomerUpsert = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  console.log(state);
 
   const formEl = useRef();
 
-  const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [addharNumber, setAddharNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [gender, setGender] = useState("");
+  const [firstName, setFirstName] = useState(state.uref.firstName);
+  const [middleName, setMiddleName] = useState(state.uref.middleName);
+  const [lastName, setLastName] = useState(state.uref.lastName);
+  const [addharNumber, setAddharNumber] = useState(state.uref.addharNumber);
+  const [email, setEmail] = useState(state.uref.email);
+  const [mobileNumber, setMobileNumber] = useState(state.uref.mobileNumber);
+  const [gender, setGender] = useState(state.uref.gender);
 
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateMiddleName = (e) => setMiddleName(e.target.value);
@@ -56,12 +57,49 @@ export const CustomerUpsert = () => {
     }
   };
 
+  const updateCustomer = (e) => {
+    e.preventDefault();
+
+    const isFormValid = formEl.current.checkValidity();
+    if (isFormValid) {
+      dispatch(
+        updateCustomerAction({
+          customerId: state.uref.customerId,
+          firstName,
+          middleName,
+          lastName,
+          addharNumber,
+          email,
+          mobileNumber,
+          gender,
+        })
+      );
+
+      // clear the form
+    } else {
+      e.stopPropagation();
+      formEl.current.classList.add("was-validated");
+    }
+  };
+
   return (
-    <div>
+    // <div>
+    <div
+      className="bg-light  justify-content-center align-items-center "
+      style={{ height: "100vh" }}
+    >
       <AppNav />
-      <div className="alert alert-secondary">
-        <h3>Customer Register</h3>
+      <div className="alert alert-secondary ">
+        {state.uref.customerId ? (
+          <h5>Employee Update</h5>
+        ) : (
+          <h5>Employee Create</h5>
+        )}
       </div>
+      {/* 
+      <div>
+        <h5>Employee Create</h5>
+      </div> */}
 
       {state.progress && (
         <div className="mx-4 alert alert-success">
@@ -70,20 +108,21 @@ export const CustomerUpsert = () => {
       )}
 
       <form ref={formEl} className="mx-4 needs-validation" noValidate>
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={firstName}
             onChange={updateFirstName}
-            className="form-control form-control-lg mb-1"
+            className="form-control form-control-lg mb-1 w-10"
             placeholder="Enter First Name"
             minLength="3"
             maxLength="30"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={middleName}
@@ -93,10 +132,11 @@ export const CustomerUpsert = () => {
             minLength="3"
             maxLength="30"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={lastName}
@@ -106,10 +146,11 @@ export const CustomerUpsert = () => {
             minLength="3"
             maxLength="30"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={addharNumber}
@@ -118,10 +159,11 @@ export const CustomerUpsert = () => {
             placeholder="Enter Adhar Number"
             maxLength="12"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="email"
             value={email}
@@ -131,22 +173,24 @@ export const CustomerUpsert = () => {
             minLength="3"
             maxLength="30"
             required
+            style={{ width: "600px" }}
           />
         </div>
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={mobileNumber}
             onChange={updateMobileNumber}
-            className="form-control form-control-lg mb-1"
+            className="form-control form-control-lg mb-1 w-10"
             placeholder="Enter Mobile Number"
             minLength="3"
             maxLength="30"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
+        <div style={{ paddingLeft: "400px" }}>
           <input
             type="text"
             value={gender}
@@ -156,16 +200,26 @@ export const CustomerUpsert = () => {
             minLength="3"
             maxLength="6"
             required
+            style={{ width: "600px" }}
           />
         </div>
 
-        <div>
-          <input
-            type="button"
-            onClick={addNewCustomer}
-            value="Add Customer"
-            className="btn btn-lg btn-success w-100"
-          />
+        <div style={{ paddingLeft: "400px" }}>
+          {state.uref.customerId ? (
+            <input
+              type="button"
+              onClick={updateCustomer}
+              value="Update Employee"
+              className="btn btn-md btn-success w-10"
+            />
+          ) : (
+            <input
+              type="button"
+              onClick={addNewCustomer}
+              value="Add Customer"
+              className="btn btn-md btn-success w-10"
+            />
+          )}
         </div>
       </form>
     </div>

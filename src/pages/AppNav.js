@@ -1,4 +1,11 @@
-import { Nav, Navbar } from "react-bootstrap";
+import {
+  Nav,
+  Navbar,
+  Dropdown,
+  DropdownButton,
+  FormControl,
+  InputGroup,
+} from "react-bootstrap"; //
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
@@ -13,32 +20,30 @@ export const AppNav = () => {
     //   </Link>
     // </div>
     <Navbar bg="info" variant="dark" expand="lg" sticky="top">
-      <Navbar.Brand href="#home">
-        Electricity Bill Management System
-      </Navbar.Brand>
+      <Navbar.Brand href="#home">EBMS</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link as={Link} to="/customer-upsert">
-            ADD CUSTOMER
+            AddCustomer
           </Nav.Link>
           <Nav.Link as={Link} to="/customer-list">
-            CUSTOMER LIST
+            CustomerList
+          </Nav.Link>
+          <Nav.Link as={Link} to="/find-customer">
+            FindByPhone
+          </Nav.Link>
+          {/* <Nav.Link as={Link} to="">
+            FindByMobile
           </Nav.Link>
           <Nav.Link as={Link} to="">
-            FIND CUSTOMER BY ID
+            FindByAdhar
           </Nav.Link>
           <Nav.Link as={Link} to="">
-            FIND CUSTOMER BY MOBILE
-          </Nav.Link>
-          <Nav.Link as={Link} to="">
-            FIND CUSTOMER BY ADHAR
-          </Nav.Link>
-          <Nav.Link as={Link} to="">
-            FIND CUSTOMER BY EMAIL
-          </Nav.Link>
+            FindByEmail
+          </Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
