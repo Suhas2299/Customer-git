@@ -11,6 +11,7 @@ function App() {
 
       <Route exact path="/" component={CustomerUpsert} />
       <Route exact path="/customer-list" component={CustomerList} />
+      <Route exact path="/find-customer" component={findcustomer} />
 
       {/* <Route exact path="/customer-upsert" component={CustomerById} />
       <Route exact path="/" component={CustomerById} /> */}
