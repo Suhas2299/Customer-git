@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomer } from "../redux/store";
+import { getCustomer } from "../redux/CustomerReducer";
 import { AppNav } from "./AppNav";
 
 // import { useHistory } from "react-router-dom";
@@ -35,12 +35,12 @@ export function Filter(props) {
     filterElement = (
       <MobileNumberFilter filter={filter} onFilterChange={onFilterChange} />
     );
+  } else if (selectedFilter === "filterByEmail") {
+    filterElement = (
+      <EmailFilter filter={filter} onFilterChange={onFilterChange} />
+    );
   }
-  //else if (selectedFilter === "filterByPhone") {
-  //   filterElement = (
-  //     <PhoneNumberFilter filter={filter} onFilterChange={onFilterChange} />
-  //   );
-  // } else if (selectedFilter === "filterByConsumerNumber") {
+  // else if (selectedFilter === "filterByConsumerNumber") {
   //   filterElement = (
   //     <ConsumerNumberFilter filter={filter} onFilterChange={onFilterChange} />
   //   );
@@ -75,21 +75,21 @@ export const FilterOptions = (props) => {
         checked={props.selectedFilter === "filterByMobileNumber"}
         onChange={handleSelectionChanged}
       />
-      <label for="filterByMobileNumber" className="mr-4">
-        View By Mobile Number
+      <label for="filterByMobileNumber" className="mr-4 text-light">
+        <h5>View By Mobile Number</h5>
       </label>
 
-      {/* <input
+      <input
         type="radio"
-        id="filterByPhone"
+        id="filterByEmail"
         name="filterOptions"
-        value="filterByPhone"
-        checked={props.selectedFilter === "filterByPhone"}
+        value="filterByEmail"
+        checked={props.selectedFilter === "filterByEmail"}
         onChange={handleSelectionChanged}
       />
-      <label for="filterByPhone" className="mr-4">
-        View By Phonenumber
-      </label> */}
+      <label for="filterByEmail" className="mr-4 text-light ">
+        <h5> View By Email </h5>
+      </label>
 
       {/* <input
         type="radio"
@@ -119,28 +119,30 @@ export const MobileNumberFilter = (props) => {
         placeholder="Enter mobile number"
         required="true"
         onChange={onMobileNumberChange}
+        className="transparent-input form-control-lg mb-1 w-10 "
       ></input>
     </div>
   );
 };
 
-// export const PhoneNumberFilter = (props) => {
-//   function onPhoneNumberChange(e) {
-//     console.log("update phone");
-//     props.onFilterChange({ phoneNumber: e.target.value });
-//   }
-//   return (
-//     <div>
-//       <label className="mr-3">Phone number </label>
-//       <input
-//         type="text"
-//         placeholder="Enter phone number"
-//         required="true"
-//         onChange={onPhoneNumberChange}
-//       ></input>
-//     </div>
-//   );
-// };
+export const EmailFilter = (props) => {
+  function onEmailChange(e) {
+    console.log("update phone");
+    props.onFilterChange({ email: e.target.value });
+  }
+  return (
+    <div>
+      <label className="mr-3"></label>
+      <input
+        type="text"
+        placeholder="Enter Email ID"
+        required="true"
+        onChange={onEmailChange}
+        className="transparent-input form-control-lg mb-1 w-10 "
+      ></input>
+    </div>
+  );
+};
 
 // export const ConsumerNumberFilter = (props) => {
 //   function onConsumerNumberChange(e) {
@@ -162,36 +164,42 @@ export const MobileNumberFilter = (props) => {
 
 export const ViewCustomer = () => {
   const state = useSelector((state) => state);
-  if (!state.searchResult) {
-    return (
-      <div>
-        <h1>No User found</h1>
-      </div>
-    );
-  }
+  if (!state.customer.searchResult)
+    if (!state.customer.searchResult) {
+      return (
+        <div>
+          <h5 className="mx-4 alert alert-success">No User found</h5>
+        </div>
+      );
+    }
   return (
     <div>
-      <h3 className="bg-light p-3">Customer Details</h3>
+      <h3 className=" bg-light p-2">Customer Details</h3>
 
-      <div>
-        <label>Mobile:</label>
-        <label>{state.searchResult.mobileNumber}</label>
-      </div>
+      <div className="text-light">
+        <div>
+          <label>Mobile:</label>
+          <label>{state.customer.searchResult.mobileNumber}</label>
+        </div>
 
-      <div>
-        <label>FirstName:</label>
-        <label>{state.searchResult.firstName} </label>
-      </div>
-      <div>
-        <label>MiddleName:</label>
-        <label>{state.searchResult.middleName}</label>
-      </div>
-      <div>
-        <label>LastName:</label>
-        <label>{state.searchResult.lastName}</label>
-      </div>
+        <div>
+          <label>FirstName:</label>
+          <label>{state.customer.searchResult.firstName} </label>
+        </div>
+        <div>
+          <label>MiddleName:</label>
+          <label>{state.customer.searchResult.middleName}</label>
+        </div>
+        <div>
+          <label>LastName:</label>
+          <label>{state.customer.searchResult.lastName}</label>
+        </div>
+        <div>
+          <label>AddharNumber:</label>
+          <label>{state.customer.searchResult.addharNumber}</label>
+        </div>
 
-      {/* <div>
+        {/* <div>
         <input
           type="submit"
           value="submit"
@@ -199,6 +207,7 @@ export const ViewCustomer = () => {
           className="btn btn-lg btn-secondary w-100"
         />
       </div> */}
+      </div>
     </div>
   );
 };
@@ -207,7 +216,7 @@ export const findcustomer = () => {
   return (
     <div>
       <AppNav />
-      <h3 className="bg-light p-3">Find Customer By Phone</h3>
+      <h3 className="bg-light p-2 op-1 ">View Your Details</h3>
 
       <Filter />
       <ViewCustomer />

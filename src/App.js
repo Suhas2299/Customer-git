@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { CustomerUpsert } from "./pages/CustomerUpsert";
 import { CustomerList } from "./pages/CustomerList";
+import { findcustomer } from "./pages/findcustomer";
 
 function App() {
   return (

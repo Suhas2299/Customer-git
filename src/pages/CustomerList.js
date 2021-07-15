@@ -4,7 +4,7 @@ import {
   findByIdAction,
   getAllCustomerAction,
   updateRenderAction,
-} from "../redux/store";
+} from "../redux/CustomerReducer";
 import { AppNav } from "./AppNav";
 import { useHistory } from "react-router-dom";
 import {
@@ -25,15 +25,15 @@ export const CustomerList = () => {
     dispatch(getAllCustomerAction());
   }, []);
 
-  const updateRecord = (item) => {
-    console.log("Update Record", item);
+  // const updateRecord = (item) => {
+  //   console.log("Update Record", item);
 
-    // 3 :: updating the store
-    dispatch(updateRenderAction(item));
+  //   // 3 :: updating the store
+  //   dispatch(updateRenderAction(item));
 
-    // navigateing to the page
-    history.push("/customer-upsert");
-  };
+  //   // navigateing to the page
+  //   history.push("/customer-upsert");
+  // };
 
   // const [id, setId] = useState("");
   // const updateId = (e) => {
@@ -53,7 +53,7 @@ export const CustomerList = () => {
   return (
     <div>
       <AppNav />
-      <div className="alert alert-secondary mb-4">
+      <div className="alert alert-secondary mb-2 p-2">
         <h3>Customer List</h3>
       </div>
       {/* 
@@ -88,7 +88,7 @@ export const CustomerList = () => {
       {/* <Dropdown.Item href="#">Separated link</Dropdown.Item> */}
 
       <table className="table">
-        <thead className="thead-secondary">
+        <thead className="thead-secondary text-light">
           <tr>
             <th scope="col">Id</th>
             <th scope="col">AddharNumber</th>
@@ -101,8 +101,8 @@ export const CustomerList = () => {
             <th scope="col"> Action</th>
           </tr>
         </thead>
-        <tbody>
-          {state.customerList.map((item, index) => (
+        <tbody className="thead-secondary text-light">
+          {state.customer.customerList.map((item, index) => (
             <tr key={index}>
               <th scope="row">{item.customerId}</th>
               <td>{item.addharNumber}</td>
@@ -118,7 +118,7 @@ export const CustomerList = () => {
                   value="Update"
                   className="btn btn-outline-success btn-sm  mr-1"
                   // onClick={updateRecord} :1
-                  onClick={() => updateRecord(item)}
+                  // onClick={() => updateRecord(item)}
                 />
               </td>
             </tr>

@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cretaeCustomerAction, updateCustomerAction } from "../redux/store";
+import {
+  cretaeCustomerAction,
+  updateCustomerAction,
+} from "../redux/CustomerReducer";
 import { AppNav } from "./AppNav";
 
 export const CustomerUpsert = () => {
@@ -11,13 +14,17 @@ export const CustomerUpsert = () => {
 
   const formEl = useRef();
 
-  const [firstName, setFirstName] = useState(state.uref.firstName);
-  const [middleName, setMiddleName] = useState(state.uref.middleName);
-  const [lastName, setLastName] = useState(state.uref.lastName);
-  const [addharNumber, setAddharNumber] = useState(state.uref.addharNumber);
-  const [email, setEmail] = useState(state.uref.email);
-  const [mobileNumber, setMobileNumber] = useState(state.uref.mobileNumber);
-  const [gender, setGender] = useState(state.uref.gender);
+  const [firstName, setFirstName] = useState(state.customer.uref.firstName);
+  const [middleName, setMiddleName] = useState(state.customer.uref.middleName);
+  const [lastName, setLastName] = useState(state.customer.uref.lastName);
+  const [addharNumber, setAddharNumber] = useState(
+    state.customer.uref.addharNumber
+  );
+  const [email, setEmail] = useState(state.customer.uref.email);
+  const [mobileNumber, setMobileNumber] = useState(
+    state.customer.uref.mobileNumber
+  );
+  const [gender, setGender] = useState(state.customer.uref.gender);
 
   const updateFirstName = (e) => {
     // console.log(e.target.value);
@@ -69,7 +76,7 @@ export const CustomerUpsert = () => {
     if (isFormValid) {
       dispatch(
         updateCustomerAction({
-          customerId: state.uref.customerId,
+          customerId: state.customer.uref.customerId,
           firstName,
           middleName,
           lastName,
@@ -102,7 +109,7 @@ export const CustomerUpsert = () => {
         }}
       > */}
       <div className="alert alert-secondary ">
-        {state.uref.customerId ? (
+        {state.customer.uref.customerId ? (
           <h5>Customer Update</h5>
         ) : (
           <h5>Customer Registration</h5>
@@ -114,7 +121,7 @@ export const CustomerUpsert = () => {
         <h5>Employee Create</h5>
       </div> */}
 
-      {state.progress && (
+      {state.customer.progress && (
         <div className="mx-4 alert alert-success">Successful</div>
       )}
 
@@ -216,7 +223,7 @@ export const CustomerUpsert = () => {
         </div>
 
         <div style={{ paddingLeft: "400px" }}>
-          {state.uref.customerId ? (
+          {state.customer.uref.customerId ? (
             <input
               type="button"
               onClick={updateCustomer}

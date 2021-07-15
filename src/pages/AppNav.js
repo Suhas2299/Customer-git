@@ -19,7 +19,15 @@ export const AppNav = () => {
     //     <h6>ADD CUSTOMER</h6>
     //   </Link>
     // </div>
-    <Navbar bg="info" variant="dark" expand="lg" sticky="top">
+    <Navbar
+      variant="dark"
+      expand="lg"
+      sticky="top"
+      bg="info"
+      collapseOnSelect
+      expand="lg"
+      variant="dark"
+    >
       <Navbar.Brand href="#home">EBMS</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -27,13 +35,13 @@ export const AppNav = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link as={Link} to="/customer-upsert">
-            AddCustomer
+            CustomerRegister
           </Nav.Link>
           <Nav.Link as={Link} to="/customer-list">
             CustomerList
           </Nav.Link>
           <Nav.Link as={Link} to="/find-customer">
-            FindByPhone
+            FindConsumer
           </Nav.Link>
           {/* <Nav.Link as={Link} to="">
             FindByMobile
