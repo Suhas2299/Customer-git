@@ -19,7 +19,12 @@ export const CustomerUpsert = () => {
   const [mobileNumber, setMobileNumber] = useState(state.uref.mobileNumber);
   const [gender, setGender] = useState(state.uref.gender);
 
-  const updateFirstName = (e) => setFirstName(e.target.value);
+  const updateFirstName = (e) => {
+    // console.log(e.target.value);
+    // const aValue = e.target.value.replace(/[^\gi]/d, "");
+    // setFirstName(aValue);
+    setFirstName(e.target.value);
+  };
   const updateMiddleName = (e) => setMiddleName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
   const updateAddharNumber = (e) => setAddharNumber(e.target.value);
@@ -85,26 +90,32 @@ export const CustomerUpsert = () => {
   return (
     // <div>
     <div
-      className="bg-light  justify-content-center align-items-center "
+      className="justify-content-center align-items-center "
       style={{ height: "100vh" }}
     >
       <AppNav />
+      {/* <div
+        style={{
+          backgroundImage: `url("https://picsum.photos/800/300?electricity")`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      > */}
       <div className="alert alert-secondary ">
         {state.uref.customerId ? (
-          <h5>Employee Update</h5>
+          <h5>Customer Update</h5>
         ) : (
-          <h5>Employee Create</h5>
+          <h5>Customer Registration</h5>
         )}
       </div>
+
       {/* 
       <div>
         <h5>Employee Create</h5>
       </div> */}
 
       {state.progress && (
-        <div className="mx-4 alert alert-success">
-          Customer added Successfully
-        </div>
+        <div className="mx-4 alert alert-success">Successful</div>
       )}
 
       <form ref={formEl} className="mx-4 needs-validation" noValidate>
@@ -113,7 +124,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={firstName}
             onChange={updateFirstName}
-            className="form-control form-control-lg mb-1 w-10"
+            className="form-control  transparent-input form-control-lg mb-1 w-10 "
             placeholder="Enter First Name"
             minLength="3"
             maxLength="30"
@@ -127,7 +138,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={middleName}
             onChange={updateMiddleName}
-            className="form-control form-control-lg mb-1"
+            className="form-control transparent-input form-control-lg mb-1"
             placeholder="Enter Middle Name"
             minLength="3"
             maxLength="30"
@@ -141,7 +152,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={lastName}
             onChange={updateLastName}
-            className="form-control form-control-lg mb-1"
+            className="form-control transparent-input form-control-lg mb-1"
             placeholder="Enter Last Name"
             minLength="3"
             maxLength="30"
@@ -155,7 +166,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={addharNumber}
             onChange={updateAddharNumber}
-            className="form-control form-control-lg mb-1"
+            className="form-control transparent-input form-control-lg mb-1"
             placeholder="Enter Adhar Number"
             maxLength="12"
             required
@@ -168,7 +179,7 @@ export const CustomerUpsert = () => {
             type="email"
             value={email}
             onChange={updateEmail}
-            className="form-control form-control-lg mb-1"
+            className="form-control transparent-input form-control-lg mb-1"
             placeholder="Enter Email"
             minLength="3"
             maxLength="30"
@@ -181,7 +192,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={mobileNumber}
             onChange={updateMobileNumber}
-            className="form-control form-control-lg mb-1 w-10"
+            className="form-control transparent-input form-control-lg mb-1 w-10"
             placeholder="Enter Mobile Number"
             minLength="3"
             maxLength="30"
@@ -195,7 +206,7 @@ export const CustomerUpsert = () => {
             type="text"
             value={gender}
             onChange={updateGender}
-            className="form-control form-control-lg mb-1"
+            className="form-control transparent-input form-control-lg mb-1"
             placeholder="Enter Gender"
             minLength="3"
             maxLength="6"
@@ -223,5 +234,6 @@ export const CustomerUpsert = () => {
         </div>
       </form>
     </div>
+    // </div>
   );
 };
